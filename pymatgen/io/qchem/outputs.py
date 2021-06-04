@@ -20,7 +20,7 @@ from monty.io import zopen
 from monty.json import MSONable, jsanitize
 
 from pymatgen.analysis.graphs import MoleculeGraph
-from pymatgen.analysis.local_env import OpenBabelNN
+from pymatgen.analysis.local_env import CovalentBondNN
 from pymatgen.core import Molecule
 
 try:
@@ -1390,9 +1390,9 @@ def check_for_structure_changes(mol1: Molecule, mol2: Molecule) -> str:
 
     # Can add logic to check the distances in the future if desired
 
-    initial_mol_graph = MoleculeGraph.with_local_env_strategy(mol_list[0], OpenBabelNN())
+    initial_mol_graph = MoleculeGraph.with_local_env_strategy(mol_list[0], CovalentBondNN())
     initial_graph = initial_mol_graph.graph
-    last_mol_graph = MoleculeGraph.with_local_env_strategy(mol_list[1], OpenBabelNN())
+    last_mol_graph = MoleculeGraph.with_local_env_strategy(mol_list[1], CovalentBondNN())
     last_graph = last_mol_graph.graph
     if initial_mol_graph.isomorphic_to(last_mol_graph):
         return "no_change"
